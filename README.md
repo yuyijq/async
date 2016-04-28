@@ -1,26 +1,5 @@
 # 模仿.NET的async/await的异步实现
 
-包含两部分内容
-
-## 给Dubbo生成异步接口
-
-给定如下API，标记上@Async
-```
-@Async
-public interface UserService{
-    User findUser(String name);
-}
-```
-会生成
-```
-public interface UserServiceAsync implements UserService{
-    ListenableFuture<User> findUserAsync(String name);
-}
-```
-这样consumer调用的时候可以直接使用 UserServiceAsync调用findUserAsync，然后Dubbo内部转换成对原有方法的异步调用来降低Dubbo异步使用的难度。
-
-## 通用的异步处理
-
 ### 传统异步
 传统的异步方式往往使用callback，callback会使逻辑变得复杂，代码变得支离破碎。处理循环时也很不方便，比如：
 ```
