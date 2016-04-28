@@ -12,8 +12,6 @@ import java.util.*;
 public class AsyncCheckClassVisitor extends ClassVisitor {
     private static final String ASYNC_DESC = Type.getDescriptor(AsyncMethod.class);
 
-    private static final String AWAITER_INTERNAL_NAME = Type.getInternalName(Awaiter.class);
-
     private final List<MethodNode> methods;
 
     private final Set<Callee> callees;
@@ -69,19 +67,13 @@ public class AsyncCheckClassVisitor extends ClassVisitor {
             @Override
             public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
                 if (async) {
-                    if (isAwait(opcode, owner, name)) {
+                    if (Util.isAwait(opcode, owner, name)) {
                         hasAwait = true;
                     } else if (!itf && owner.equals(className)) {
                         callees.add(new Callee(owner, name, desc));
                     }
                 }
                 super.visitMethodInsn(opcode, owner, name, desc, itf);
-            }
-
-            private boolean isAwait(int opcode, String owner, String name) {
-                return opcode == Opcodes.INVOKESTATIC
-                        && AWAITER_INTERNAL_NAME.equals(owner)
-                        && "await".equals(name);
             }
 
             @Override

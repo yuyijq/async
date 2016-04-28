@@ -36,4 +36,10 @@ public class Util {
     public static boolean isAwait2(MethodInsnNode node) {
         return isAwait(node) && AWAIT2_METHOD_DESC.equals(node.desc);
     }
+
+    public static boolean isAwait(int opcode, String owner, String name) {
+        return opcode == Opcodes.INVOKESTATIC
+                && AWAITER_INTERNAL_NAME.equals(owner)
+                && "await".equals(name);
+    }
 }
