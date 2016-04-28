@@ -119,3 +119,6 @@ TODO LIST
 * 如果这个test方法本身也是异步的，我已经在Awaiter里加入了 Awaiter.ret方法，需要进一步考虑实现
 * 进行详细的测试
 * 写一个maven插件
+
+怎么玩?
+* async-demo里有一个Test的类，是用同步风格写的，将其编译好，然后用async-main里的工具进行字节码修改

@@ -13,9 +13,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>qunar.tc.async</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>async-core</artifactId>
-            <version>1.0.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
